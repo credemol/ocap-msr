@@ -10,4 +10,5 @@ import ocap.msr.entity.Seat;
 public interface SeatRepository extends CrudRepository<Seat, Long>{
 
 	List<Seat> findBySeatNoLike(@Param("seatNo") String seatNo);
+	Seat findBySeatNo(@Param("seatNo") String seatNo);
 }

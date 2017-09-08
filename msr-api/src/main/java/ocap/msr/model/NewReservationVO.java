@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
 /**
  * NewReservationVO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-04T16:47:01.335+09:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-08T15:25:12.926+09:00")
 
 public class NewReservationVO   {
   @JsonProperty("reservationDate")
@@ -64,11 +64,11 @@ public class NewReservationVO   {
   @JsonProperty("reservedAt")
   private DateTime reservedAt = null;
 
-  @JsonProperty("seatId")
-  private Long seatId = null;
+  @JsonProperty("seatNo")
+  private String seatNo = null;
 
-  @JsonProperty("userId")
-  private Long userId = null;
+  @JsonProperty("email")
+  private String email = null;
 
   public NewReservationVO reservationDate(LocalDate reservationDate) {
     this.reservationDate = reservationDate;
@@ -177,46 +177,46 @@ public class NewReservationVO   {
     this.reservedAt = reservedAt;
   }
 
-  public NewReservationVO seatId(Long seatId) {
-    this.seatId = seatId;
+  public NewReservationVO seatNo(String seatNo) {
+    this.seatNo = seatNo;
     return this;
   }
 
    /**
-   * Get seatId
-   * @return seatId
+   * Get seatNo
+   * @return seatNo
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 
-  public Long getSeatId() {
-    return seatId;
+  public String getSeatNo() {
+    return seatNo;
   }
 
-  public void setSeatId(Long seatId) {
-    this.seatId = seatId;
+  public void setSeatNo(String seatNo) {
+    this.seatNo = seatNo;
   }
 
-  public NewReservationVO userId(Long userId) {
-    this.userId = userId;
+  public NewReservationVO email(String email) {
+    this.email = email;
     return this;
   }
 
    /**
-   * Get userId
-   * @return userId
+   * Get email
+   * @return email
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 
-  public Long getUserId() {
-    return userId;
+  public String getEmail() {
+    return email;
   }
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
 
@@ -234,13 +234,13 @@ public class NewReservationVO   {
         Objects.equals(this.endingTime, newReservation.endingTime) &&
         Objects.equals(this.status, newReservation.status) &&
         Objects.equals(this.reservedAt, newReservation.reservedAt) &&
-        Objects.equals(this.seatId, newReservation.seatId) &&
-        Objects.equals(this.userId, newReservation.userId);
+        Objects.equals(this.seatNo, newReservation.seatNo) &&
+        Objects.equals(this.email, newReservation.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(reservationDate, startingTime, endingTime, status, reservedAt, seatId, userId);
+    return Objects.hash(reservationDate, startingTime, endingTime, status, reservedAt, seatNo, email);
   }
 
   @Override
@@ -253,8 +253,8 @@ public class NewReservationVO   {
     sb.append("    endingTime: ").append(toIndentedString(endingTime)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    reservedAt: ").append(toIndentedString(reservedAt)).append("\n");
-    sb.append("    seatId: ").append(toIndentedString(seatId)).append("\n");
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    seatNo: ").append(toIndentedString(seatNo)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("}");
     return sb.toString();
   }

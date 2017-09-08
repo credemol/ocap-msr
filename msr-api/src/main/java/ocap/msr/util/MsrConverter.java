@@ -47,11 +47,11 @@ public class MsrConverter {
 		Reservation entity = new Reservation();
 		
 		User user = new User();
-		user.setId(vo.getUserId());
+		user.setEmail(vo.getEmail());
 		entity.setUser(user);
 		
 		Seat seat = new Seat();
-		seat.setId(vo.getSeatId());
+		seat.setSeatNo(vo.getSeatNo());
 		entity.setSeat(seat);
 		
 		entity.setReservationDate(new java.sql.Date(vo.getReservationDate().toDate().getTime()));

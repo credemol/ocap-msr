@@ -13,10 +13,13 @@ import org.springframework.stereotype.Service;
 
 import ocap.msr.entity.Reservation;
 import ocap.msr.entity.Seat;
+import ocap.msr.entity.User;
 import ocap.msr.model.NewReservationVO;
 import ocap.msr.model.ReservationVO;
 import ocap.msr.model.SeatVO;
 import ocap.msr.repository.ReservationRepository;
+import ocap.msr.repository.SeatRepository;
+import ocap.msr.repository.UserRepository;
 import ocap.msr.util.MsrConverter;
 
 //@Service("reservationService")
@@ -27,6 +30,12 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private ReservationRepository reservationRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private SeatRepository seatRepository;
 
 	@Override
 	public void cancelReservation(long reservationId) {
@@ -81,10 +90,15 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<ReservationVO> findByUser(long userId, DateTime startingTime, DateTime endingTime) {
+	public List<ReservationVO> findByUser(String email, DateTime startingTime, DateTime endingTime) {
 		List<Reservation> reservations = null;
+		System.out.println("email: " + email);
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			throw new IllegalArgumentException("user not found - email: " + email);
+		}
 		if(startingTime == null && endingTime == null) {
-			reservations = reservationRepository.findByUserId(userId);
+			reservations = reservationRepository.findByUserId(user.getId());
 		} else {
 			Timestamp starting = new Timestamp(0L);
 			Timestamp ending = new Timestamp(Long.MAX_VALUE);
@@ -95,7 +109,7 @@ public class ReservationServiceImpl implements ReservationService {
 			if(endingTime != null) {
 				ending.setTime(endingTime.getMillis());
 			}
-			reservations = reservationRepository.findByUserIdAndPeriod(userId, starting, ending);
+			reservations = reservationRepository.findByUserIdAndPeriod(user.getId(), starting, ending);
 		}
 		return reservations.stream().map(converter::toValueObject).collect(Collectors.toList());
 	}
@@ -103,6 +117,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ReservationVO reserveSeat(NewReservationVO newReservation) {
 		Reservation entity = converter.toEntity(newReservation);
+		
+		entity.setSeat(seatRepository.findBySeatNo(entity.getSeat().getSeatNo()));
+		entity.setUser(userRepository.findByEmail(entity.getUser().getEmail()));
 		
 		return converter.toValueObject(reservationRepository.save(entity));
 	}
@@ -115,6 +132,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ReservationVO updateReservation(long reservationId, NewReservationVO vo) {
 		Reservation entity = reservationRepository.findOne(reservationId);
+		
+		entity.setSeat(seatRepository.findBySeatNo(entity.getSeat().getSeatNo()));
+		entity.setUser(userRepository.findByEmail(entity.getUser().getEmail()));
 		
 		entity.setStartingTime(new Timestamp(vo.getStartingTime().getMillis()));
 		entity.setEndingTime(new Timestamp(vo.getEndingTime().getMillis()));
