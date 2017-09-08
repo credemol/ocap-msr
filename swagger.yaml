@@ -204,20 +204,18 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Seat'                
-  '/reservations/findByUser/{userId}':
+  '/reservations/findByUser/{email}':
     get:
       description: find reservation information by user
       operationId: findReservationsByUser
       produces:
         - application/json        
       parameters:
-        - name: userId
+        - name: email
           in: path
-          description: user id
+          description: email
           required: true
-          type: integer
-          format: int64
-          default: 1
+          type: string
         - name: startingTime
           in: query
           description: the begining date of search
@@ -351,15 +349,13 @@ definitions:
     allOf: 
       - $ref: '#/definitions/ReservationCommon'
       - required:
-        - seatId
-        - userId
+        - seatNo
+        - email
         properties:
           seatId: 
-            type: integer
-            format: int64
+            type: string
           userId: 
-            type: integer
-            format: int64
+            type: string
   ReservationCommon:
     type: object
     required:
