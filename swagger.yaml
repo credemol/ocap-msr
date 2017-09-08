@@ -352,9 +352,9 @@ definitions:
         - seatNo
         - email
         properties:
-          seatId: 
+          seatNo: 
             type: string
-          userId: 
+          email: 
             type: string
   ReservationCommon:
     type: object
