@@ -307,3 +307,14 @@ add @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ") annotation to a para
     ResponseEntity<List<ReservationVO>> findReservations( @NotNull@ApiParam(value = "starting time you want to reserve a seat", required = false) @RequestParam(value = "startingTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ") DateTime startingTime, @NotNull@ApiParam(value = "ending time you want to reserve a seat", required = false) @RequestParam(value = "endingTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ") DateTime endingTime,@ApiParam(value = "available or occupied, upon this value is null, all seats will be returned", allowableValues = "available, occupied") @RequestParam(value = "status", required = false) String status);
 ```
 
+## ReservationApi
+Email address may contain '.' so you need to specify path like this
+RequestMapping(value = "/reservations/findByUser/{email:.+}"
+
+```
+ @RequestMapping(value = "/reservations/findByUser/{email:.+}",
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.GET)
+    ResponseEntity<List<ReservationVO>> findReservationsByUser(@ApiParam(value = "email",required=true ) @PathVariable("email") String email,@ApiParam(value = "the begining date of search") @RequestParam(value = "startingTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") DateTime startingTime,@ApiParam(value = "the end date of search. '2017-09-30T18:00:00.000Z'") @RequestParam(value = "endingTime", required = false)  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") DateTime endingTime);
+```

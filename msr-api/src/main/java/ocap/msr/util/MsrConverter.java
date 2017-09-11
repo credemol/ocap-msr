@@ -61,6 +61,23 @@ public class MsrConverter {
 		return entity;		
 	}
 	
+	/**
+	 * select id(java.math.BigInteger), seat_no(String), location(String) from seat
+	 * @param attrs
+	 * @return
+	 */
+	public SeatVO toSeatVO(Object[] attrs) {
+		SeatVO vo = new SeatVO();
+		
+		java.math.BigInteger id = (java.math.BigInteger) attrs[0];
+		
+		vo.setId(id.longValue());
+		vo.setSeatNo((String) attrs[1]);
+		vo.setLocation((String) attrs[2]);
+		
+		return vo;
+	}
+	
 	public SeatVO toValueObject(Seat seat) {
 		SeatVO vo = modelMapper.map(seat, SeatVO.class);
 		return vo;

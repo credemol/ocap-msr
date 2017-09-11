@@ -1,6 +1,7 @@
 package ocap.msr.service;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,10 +62,14 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<SeatVO> findAvailableSeats(DateTime startingTime, DateTime endingTime) {
-		List<Seat> seats = reservationRepository.findSeatsByStartTimeAndEndingTime(
+		List<Seat> seats = reservationRepository.findSeatsByBetweenStartTimeAndEndingTime(
 				new Timestamp(startingTime.getMillis()), new Timestamp(endingTime.getMillis()));
-		
 		return seats.stream().map( converter::toValueObject).collect(Collectors.toList());
+		
+//		List<Object[]> seats = reservationRepository.findSeatsByStartTimeAndEndingTime(
+//				new Timestamp(startingTime.getMillis()), new Timestamp(endingTime.getMillis()));
+//
+//		return seats.stream().map( converter::toSeatVO ).collect(Collectors.toList());
 	}
 
 	@Override
@@ -120,6 +125,11 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		entity.setSeat(seatRepository.findBySeatNo(entity.getSeat().getSeatNo()));
 		entity.setUser(userRepository.findByEmail(entity.getUser().getEmail()));
+		
+		String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+		System.out.println("starting time: " + format.format(entity.getStartingTime()));
+		System.out.println("ending time: " + format.format(entity.getEndingTime()));
 		
 		return converter.toValueObject(reservationRepository.save(entity));
 	}
