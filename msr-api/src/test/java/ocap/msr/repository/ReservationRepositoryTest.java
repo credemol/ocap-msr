@@ -28,7 +28,7 @@ import ocap.msr.util.MsrConverter;
 //@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @SpringBootTest
 //@DataJpaTest
-//@Ignore
+@Ignore
 public class ReservationRepositoryTest {
 
 	@Autowired

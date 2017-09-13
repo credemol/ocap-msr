@@ -23,7 +23,7 @@ public class MsrConverter {
 	//private static final DateTimeZone DEFATUL_DATE_TIME_ZONE = DateTimeZone.forID("+09:00") ;
 	//private static final DateTimeZone DEFATUL_DATE_TIME_ZONE = DateTimeZone.forID("UTC") ;
 	
-	private static final long TIMEZONE_OFFSET = (9 * 60 * 60 * 1000); // +09:00
+	private static final long TIMEZONE_OFFSET = 0; //(9 * 60 * 60 * 1000); // +09:00
 	
 	@Autowired
 	private ModelMapper modelMapper;

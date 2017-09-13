@@ -116,7 +116,10 @@ public class ReservationServiceImpl implements ReservationService {
 			}
 			reservations = reservationRepository.findByUserIdAndPeriod(user.getId(), starting, ending);
 		}
-		return reservations.stream().map(converter::toValueObject).collect(Collectors.toList());
+		List<ReservationVO> voList = reservations.stream().map(converter::toValueObject).collect(Collectors.toList());
+		
+		voList.sort((e1, e2) -> e1.getStartingTime().compareTo(e2.getStartingTime()) );
+		return voList;
 	}
 
 	@Override
