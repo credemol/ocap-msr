@@ -92,7 +92,7 @@ $ docker-compose up -d
 
 ```
 
-## MSR-API ENDPOINT deployed on ACCS
+## MSR-API Endpoint deployed on ACCS
 
 BASE_URL: [https://MSRAPI-gse00013250.apaas.us6.oraclecloud.com](https://MSRAPI-gse00013250.apaas.us6.oraclecloud.com)
 
@@ -102,4 +102,16 @@ curl --include \
      --header "Content-Type: application/json" \
      --header "Accept: application/json;charset=UTF-8" \
   'https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/seats?seatNo=&limit='
+``` 
+
+## MSR-API Endpoint deployed on OCCS
+BASE_URL; [http://129.150.84.190:8080](http://129.150.84.190:8080)
+
+
+### cURL test
+```
+curl --include \
+     --header "Content-Type: application/json" \
+     --header "Accept: application/json;charset=UTF-8" \
+  'http://129.150.84.190:8080/v1/seats?seatNo=&limit='
 ``` 
