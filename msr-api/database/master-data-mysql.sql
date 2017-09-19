@@ -1,7 +1,13 @@
-insert into user (email) values('younggyu.kim@oracle.com');
-insert into user (email) values('jupil.hwang@oracle.com');
-insert into user (email) values('sunghye.jeon@oracle.com');
-insert into user (email) values('inho.kang@oracle.com');
+insert into team (name, manager_name, description) values('Public', '', 'This team only can be assigned to seats as public');
+insert into team (name, manager_name, description) values('No Categorized', '', 'This team only can be assigned to seats for people not using this app');
+insert into team (name, manager_name, description) values('IaaS & Security', 'MJ Sim', '');
+insert into team (name, manager_name, description) values('Integration', 'WJ Kang', '');
+insert into team (name, manager_name, description) values('BI & Big Data', 'HH Roh', '');
+
+insert into user (email, facebook_id, team_id) values('younggyu.kim@oracle.com', 'credemol@gmail.com', 3);
+insert into user (email, facebook_id, team_id) values('jupil.hwang@oracle.com', '', 3);
+insert into user (email, facebook_id, team_id) values('sung.hye.jeon@oracle.com', '', 3);
+insert into user (email, facebook_id, team_id) values('inho.kang@oracle.com', '', 3);
 
 insert into seat (seat_no, location) values('12341', '12F South');
 insert into seat (seat_no, location) values('12343', '12F South');
@@ -78,6 +84,9 @@ insert into seat (seat_no, location) values('12455', '12F South');
 insert into seat (seat_no, location) values('12457', '12F South');
 insert into seat (seat_no, location) values('12459', '12F South');
 insert into seat (seat_no, location) values('12445', '12F South');
+
+
+select * from seat where seat_no = '12453';
 
 insert into reservation (user_id, seat_id, reservation_date, starting_time, ending_time, status, reserved_at, last_modified_at) 
     values (1, 1, STR_TO_DATE('2017-09-05', '%Y-%m-%d'), STR_TO_DATE('2017-09-05 09', '%Y-%m-%d %H'), STR_TO_DATE('2017-09-05 18', '%Y-%m-%d %H'), 1, now(), now());

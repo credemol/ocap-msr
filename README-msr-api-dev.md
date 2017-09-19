@@ -32,6 +32,10 @@ This document is aimed for developers who are responsible for developing msr-api
 		    <artifactId>modelmapper</artifactId>
 		    <version>0.7.4</version>
 		</dependency>          
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>		
 ```
 
 ## Change Java version to 1.8 
@@ -50,9 +54,46 @@ This document is aimed for developers who are responsible for developing msr-api
 * ocap.msr.service
 
 ## Create Entity classes in the ocap.msr.entity package
+* Team
 * User
 * Seat
 * Reservation
+
+### Team.java
+generate followings after writing User.java like below
+* default constructor
+* constructor with fields: 
+* constructor with fields: id, name, managerName, description
+* getter / setter
+* toString
+* hashCode and equals 
+
+'''
+package ocap.msr.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Team {
+
+	@Id
+	@GeneratedValue
+	private long id;
+	
+	@Column
+	private String name;
+	
+	@Column
+	private String managerName;
+	
+	@Column
+	private String description;
+
+}
+'''
 
 ### User.java
 generate followings after writing User.java like below
@@ -90,6 +131,10 @@ public class User implements Serializable{
 	@Column 
 	private String password;
 
+	@ManyToOne 
+	private Team team;	
+
+}
 '''
 
 ### Seat.java
@@ -120,6 +165,9 @@ public class Seat {
 	
 	@Column
 	private String location;
+
+	@ManyToOne 
+	private Team team;	
 }
 ```
 ### ReservationStatus.java
@@ -262,22 +310,37 @@ package ocap.msr;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
+@ComponentScan(basePackages = { "io.swagger", "ocap.msr.api", "ocap.msr.service", "ocap.msr.util" })
+@EnableJpaRepositories("ocap.msr.repository")
+@EntityScan("ocap.msr.entity")
 public class MsrApplication  {
 
     public static void main(String[] args) throws Exception {
         new SpringApplication(MsrApplication.class).run(args);
     }
-
+    
     @Bean
     public ModelMapper modelMapper() {
     		return new ModelMapper(); 
-    }    
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+    		return new BCryptPasswordEncoder();
+    }
 }
+
 ```
 
 ## application.properties

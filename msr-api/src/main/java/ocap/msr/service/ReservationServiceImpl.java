@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.joda.time.DateTime;
@@ -14,14 +15,17 @@ import org.springframework.stereotype.Service;
 
 import ocap.msr.entity.Reservation;
 import ocap.msr.entity.Seat;
+import ocap.msr.entity.Team;
 import ocap.msr.entity.User;
 import ocap.msr.model.NewReservationVO;
 import ocap.msr.model.ReservationVO;
 import ocap.msr.model.SeatVO;
 import ocap.msr.repository.ReservationRepository;
 import ocap.msr.repository.SeatRepository;
+import ocap.msr.repository.TeamRepository;
 import ocap.msr.repository.UserRepository;
 import ocap.msr.util.MsrConverter;
+import ocap.msr.util.TeamNames;
 
 //@Service("reservationService")
 @Service
@@ -37,6 +41,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private SeatRepository seatRepository;
+	
+	@Autowired
+	private TeamRepository teamRepository;
 
 	@Override
 	public void cancelReservation(long reservationId) {
@@ -44,7 +51,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<SeatVO> findAvailableSeats(Date date) {
+	public List<SeatVO> findAvailableSeats(String email, Date date) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		
@@ -57,13 +64,19 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		c.set(Calendar.HOUR_OF_DAY, 18);
 		DateTime endingTime = new DateTime(c.getTimeInMillis());
-		return findAvailableSeats(startingTime, endingTime);
+		return findAvailableSeats(email, startingTime, endingTime);
 	}
 
 	@Override
-	public List<SeatVO> findAvailableSeats(DateTime startingTime, DateTime endingTime) {
+	public List<SeatVO> findAvailableSeats(String email, DateTime startingTime, DateTime endingTime) {
+		User user = userRepository.findByEmail(email);
+		List<Team> teams = teamRepository.findByNames(TeamNames.PUBLIC.getTeamName(), user.getTeam().getName());
+		
+		Set<Long> teamIdSet = teams.stream().map(team -> team.getId()).collect(Collectors.toSet());
+		Long[] teamIds = teamIdSet.toArray(new Long[teamIdSet.size()]);
+		
 		List<Seat> seats = reservationRepository.findSeatsByBetweenStartTimeAndEndingTime(
-				new Timestamp(startingTime.getMillis()), new Timestamp(endingTime.getMillis()));
+				teamIds, new Timestamp(startingTime.getMillis()), new Timestamp(endingTime.getMillis()));
 		return seats.stream().map( converter::toValueObject).collect(Collectors.toList());
 		
 //		List<Object[]> seats = reservationRepository.findSeatsByStartTimeAndEndingTime(

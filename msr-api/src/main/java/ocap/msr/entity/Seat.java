@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Seat {
@@ -12,12 +13,17 @@ public class Seat {
 	@GeneratedValue
 	private long id;
 	
+	
 	@Column(unique=true)
 	private String seatNo;
 	
 	@Column
 	private String location;
 
+	
+	@ManyToOne 
+	private Team team;
+	
 	public Seat() {
 		super();
 	}

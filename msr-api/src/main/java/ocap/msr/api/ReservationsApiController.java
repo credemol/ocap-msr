@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,10 +38,16 @@ public class ReservationsApiController implements ReservationsApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<List<SeatVO>> findAvailableSeats( @NotNull@ApiParam(value = "starting time you want to reserve a seat", required = true) @RequestParam(value = "startingTime", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") DateTime startingTime,
+    public ResponseEntity<List<SeatVO>> findAvailableSeats(
+    		@NotNull@ApiParam(value = "email", required = true) @RequestParam(value = "email", required = true) String email,
+    		@NotNull@ApiParam(value = "starting time you want to reserve a seat", required = true) @RequestParam(value = "startingTime", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") DateTime startingTime,
          @NotNull@ApiParam(value = "ending time you want to reserve a seat", required = true) @RequestParam(value = "endingTime", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") DateTime endingTime) {
         // do some magic!
-    		return new ResponseEntity<List<SeatVO>>(reservationService.findAvailableSeats(startingTime, endingTime) ,HttpStatus.OK);
+    	
+    		System.out.println("authentication name: " + SecurityContextHolder.getContext().getAuthentication().getName());
+    		System.out.println("authentication principal: " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    		
+    		return new ResponseEntity<List<SeatVO>>(reservationService.findAvailableSeats(email, startingTime, endingTime) ,HttpStatus.OK);
     }
 
     public ResponseEntity<List<ReservationVO>> findReservations(@ApiParam(value = "starting time you want to reserve a seat") @RequestParam(value = "startingTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") DateTime startingTime,

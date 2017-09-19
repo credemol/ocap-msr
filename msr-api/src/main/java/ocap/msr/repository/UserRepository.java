@@ -7,4 +7,5 @@ import ocap.msr.entity.User;
 
 public interface UserRepository extends CrudRepository<User, Long>{
 	User findByEmail(@Param("email") String email);
+	User findByFacebookId(@Param("facebookId") String facebookId);
 }

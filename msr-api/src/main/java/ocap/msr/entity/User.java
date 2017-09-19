@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User implements Serializable{
@@ -20,6 +21,15 @@ public class User implements Serializable{
 	
 	@Column(unique=true)
 	private String email;
+	
+	@Column
+	private String facebookId;
+	
+	@Column
+	private String kakaoTalkId;
+	
+	@ManyToOne
+	private Team team;
 	
 	@Column 
 	private String password;
@@ -64,10 +74,40 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+	
+	
+
+	
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+
+	public String getKakaoTalkId() {
+		return kakaoTalkId;
+	}
+
+	public void setKakaoTalkId(String kakaoTalkId) {
+		this.kakaoTalkId = kakaoTalkId;
+	}
+
+	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
+		return "User [id=" + id + ", email=" + email + ", facebookId=" + facebookId + ", kakaoTalkId=" + kakaoTalkId
+				+ ", team=" + team + ", password=" + password + "]";
 	}
 
 	@Override
