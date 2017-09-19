@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import ocap.msr.entity.Reservation;
@@ -47,6 +48,10 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public void cancelReservation(long reservationId) {
+		Reservation reservation = reservationRepository.findOne(reservationId);
+		if(reservation == null) {
+			throw new ResourceNotFoundException("can't find reservation information with id: " + reservationId);
+		}
 		reservationRepository.delete(reservationId);
 	}
 
@@ -113,7 +118,8 @@ public class ReservationServiceImpl implements ReservationService {
 		System.out.println("email: " + email);
 		User user = userRepository.findByEmail(email);
 		if(user == null) {
-			throw new IllegalArgumentException("user not found - email: " + email);
+			//throw new IllegalArgumentException("user not found - email: " + email);
+			throw new ResourceNotFoundException("can't find the user with email: " + email);
 		}
 		if(startingTime == null && endingTime == null) {
 			reservations = reservationRepository.findByUserId(user.getId());
@@ -152,12 +158,20 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public ReservationVO viewReservation(long reservationId) {
-		return converter.toValueObject(reservationRepository.findOne(reservationId));
+		Reservation reservation = reservationRepository.findOne(reservationId);
+		if(reservation == null) {
+			throw new ResourceNotFoundException("can't find the reservation information with id: " + reservationId);
+		}
+		return converter.toValueObject(reservation);
 	}
 
 	@Override
 	public ReservationVO updateReservation(long reservationId, NewReservationVO vo) {
 		Reservation entity = reservationRepository.findOne(reservationId);
+		
+		if(entity == null) {
+			throw new ResourceNotFoundException("can't find the reservation information with id: " + reservationId);
+		}
 		
 		entity.setSeat(seatRepository.findBySeatNo(entity.getSeat().getSeatNo()));
 		entity.setUser(userRepository.findByEmail(entity.getUser().getEmail()));

@@ -65,9 +65,19 @@ public class Seat {
 		this.location = location;
 	}
 
+	
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+	
 	@Override
 	public String toString() {
-		return "Seat [id=" + id + ", seatNo=" + seatNo + ", location=" + location + "]";
+		return "Seat [id=" + id + ", seatNo=" + seatNo + ", location=" + location + ", team=" + team + "]";
 	}
 
 	@Override

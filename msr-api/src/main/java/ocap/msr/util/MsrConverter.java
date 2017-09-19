@@ -17,6 +17,7 @@ import ocap.msr.model.NewReservationVO;
 import ocap.msr.model.NewSeatVO;
 import ocap.msr.model.ReservationVO;
 import ocap.msr.model.SeatVO;
+import ocap.msr.model.UserVO;
 
 @Component
 public class MsrConverter {
@@ -80,6 +81,15 @@ public class MsrConverter {
 	
 	public SeatVO toValueObject(Seat seat) {
 		SeatVO vo = modelMapper.map(seat, SeatVO.class);
+		
+		if(seat.getTeam() != null) {
+			vo.setTeamName(seat.getTeam().getName());
+		}
+		return vo;
+	}
+	
+	public UserVO toValueObject(User user) {
+		UserVO vo = modelMapper.map(user, UserVO.class);
 		return vo;
 	}
 	

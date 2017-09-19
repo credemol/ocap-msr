@@ -36,6 +36,10 @@ This document is aimed for developers who are responsible for developing msr-api
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>		
 ```
 
 ## Change Java version to 1.8 

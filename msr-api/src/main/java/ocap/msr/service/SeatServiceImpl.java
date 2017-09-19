@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import ocap.msr.entity.Seat;
@@ -54,7 +55,11 @@ public class SeatServiceImpl implements SeatService{
 
 	@Override
 	public SeatVO viewSeat(long seatId) {
-		return converter.toValueObject(seatRepository.findOne(seatId));
+		Seat seat = seatRepository.findOne(seatId);
+		if(seat == null) {
+			throw new ResourceNotFoundException("can't find a seat with id: " + seatId);
+		}
+		return converter.toValueObject(seat);
 	}
 
 
@@ -62,6 +67,10 @@ public class SeatServiceImpl implements SeatService{
 	@Override
 	public SeatVO updateSeat(long seatId, NewSeatVO vo) {
 		Seat seat = seatRepository.findOne(seatId);
+		
+		if(seat == null) {
+			throw new ResourceNotFoundException("can't find a seat with id: " + seatId);
+		}
 		
 		seat.setSeatNo(vo.getSeatNo());
 		seat.setLocation(vo.getLocation());

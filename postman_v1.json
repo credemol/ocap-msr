@@ -1,0 +1,527 @@
+{
+  "info": {
+    "name": "MSR API",
+    "_postman_id": "18e20de8-106e-4051-96c4-0d0777ea7e71",
+    "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/"
+  },
+  "item": [
+    {
+      "name": "Folder",
+      "item": [
+        {
+          "id": "2bc6fb8f-67e8-44b8-a0b0-dc63f8a366ee",
+          "name": "findUsers",
+          "request": {
+            "url": "https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/users?email=email&limit=214",
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "user list",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "return all users registered MSR system\n",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "22c28e93-a3cb-4455-91a2-bb7171ccba21",
+          "name": "findUserById",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "host": "msrapi-gse00013250.apaas.us6.oraclecloud.com",
+              "path": [
+                "v1",
+                "users/:id"
+              ],
+              "variable": [
+                {
+                  "id": "id",
+                  "value": "31",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "user response",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "Returns a user",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "5426433e-a192-453c-a280-183a95423cbb",
+          "name": "findUserByEmail",
+          "request": {
+            "url": "https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/users/findByEmail?email=email",
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "user response",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "Returns a user",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "44ac19db-1842-49e8-9a2c-055cb0f06a0c",
+          "name": "findUserByFacebookId",
+          "request": {
+            "url": "https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/users/findByFacebookId?facebookId=facebookId",
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "user response",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "Returns a user",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "55e0119a-a67b-4f3a-a07b-0cb8dbf7f88b",
+          "name": "findSeats",
+          "request": {
+            "url": "https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/seats?seatNo=seatNo&limit=73",
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "seat list",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "return all seats registered MSR system\n",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "311f20d5-9b80-4166-8ff0-db9fa2e2169c",
+          "name": "addSeat",
+          "request": {
+            "url": "https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/seats",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=utf-8",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"seatNo\":\"seatNo\",\"location\":\"location\",\"teamName\":\"teamName\"}"
+            }
+          },
+          "response": [
+            {
+              "status": "seat response",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "Creates a new seat",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "c2e9e94e-0485-46ee-9bc0-a51b1bc10ec4",
+          "name": "findSeatById",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "host": "msrapi-gse00013250.apaas.us6.oraclecloud.com",
+              "path": [
+                "v1",
+                "seats/:id"
+              ],
+              "variable": [
+                {
+                  "id": "id",
+                  "value": "1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "seat response",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "Returns a seat who has the id",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "ab9f959e-c491-4014-9794-4d3403419c64",
+          "name": "updateSeat",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "host": "msrapi-gse00013250.apaas.us6.oraclecloud.com",
+              "path": [
+                "v1",
+                "seats/:id"
+              ],
+              "variable": [
+                {
+                  "id": "id",
+                  "value": "1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=utf-8",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"seatNo\":\"seatNo\",\"location\":\"location\",\"teamName\":\"teamName\"}"
+            }
+          },
+          "response": [
+            {
+              "status": "seat response",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "Updates a seat",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "c6ac77d2-8010-4ac3-9358-3ae49168b280",
+          "name": "deleteSeat",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "host": "msrapi-gse00013250.apaas.us6.oraclecloud.com",
+              "path": [
+                "v1",
+                "seats/:id"
+              ],
+              "variable": [
+                {
+                  "id": "id",
+                  "value": "1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "seat deleted",
+              "code": 204
+            }
+          ],
+          "description": {
+            "content": "deletes seat",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "628e3912-e4c9-4d59-a158-8af857c35f3d",
+          "name": "findReservations",
+          "request": {
+            "url": "https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/reservations?startingTime=2017-09-19T22%3A22%3A26.849142Z&endingTime=2017-09-19T22%3A22%3A26.849142Z&status=available",
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "reservation response",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "find reservations available on a certain date",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "02ade77a-fe7e-436a-8375-f7198bc0ebc2",
+          "name": "reserveSeat",
+          "request": {
+            "url": "https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/reservations",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=utf-8",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"reservationDate\":\"19-09-2017\",\"startingTime\":\"2017-09-19T22:22:26.849142Z\",\"endingTime\":\"2017-09-19T22:22:26.849142Z\",\"seatNo\":\"seatNo\",\"email\":\"email\",\"status\":\"available\",\"reservedAt\":\"2017-09-19T22:22:26.849142Z\"}"
+            }
+          },
+          "response": [
+            {
+              "status": "return the detailed reservation information",
+              "code": 201
+            }
+          ],
+          "description": {
+            "content": "reserve a seat",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "4eae82b6-5c49-4166-9bac-e0999e4b5a26",
+          "name": "findAvailableSeats",
+          "request": {
+            "url": "https://msrapi-gse00013250.apaas.us6.oraclecloud.com/v1/reservations/findAvailableSeats?email=email&startingTime=2017-09-19T22%3A22%3A26.849142Z&endingTime=2017-09-19T22%3A22%3A26.849142Z",
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "reservation response",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "find available seats on a certain date",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "0e72b9c1-3f9e-4cf7-baa7-b80757c2f233",
+          "name": "findReservationsByUser",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "host": "msrapi-gse00013250.apaas.us6.oraclecloud.com",
+              "path": [
+                "v1",
+                "reservations/findByUser/:email"
+              ],
+              "query": [
+                {
+                  "key": "startingTime",
+                  "value": "2017-09-19T22%3A22%3A26.849142Z",
+                  "disabled": false
+                },
+                {
+                  "key": "endingTime",
+                  "value": "2017-09-19T22%3A22%3A26.849142Z",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "email",
+                  "value": "email",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "return reservation history",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "find reservation information by user",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "733ba5d8-7d5f-4df6-b5d0-ff04abcd7e74",
+          "name": "viewReservation",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "host": "msrapi-gse00013250.apaas.us6.oraclecloud.com",
+              "path": [
+                "v1",
+                "reservations/:reservationId"
+              ],
+              "variable": [
+                {
+                  "id": "reservationId",
+                  "value": "1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "return the detailed information of the reservation",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "get detailed information of the reservation",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "d02b222c-d523-455d-aa29-682e3a4c19dc",
+          "name": "updateReservation",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "host": "msrapi-gse00013250.apaas.us6.oraclecloud.com",
+              "path": [
+                "v1",
+                "reservations/:reservationId"
+              ],
+              "variable": [
+                {
+                  "id": "reservationId",
+                  "value": "1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=utf-8",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"reservationDate\":\"19-09-2017\",\"startingTime\":\"2017-09-19T22:22:26.8641557Z\",\"endingTime\":\"2017-09-19T22:22:26.8641557Z\",\"seatNo\":\"seatNo\",\"email\":\"email\",\"status\":\"available\",\"reservedAt\":\"2017-09-19T22:22:26.8641557Z\"}"
+            }
+          },
+          "response": [
+            {
+              "status": "return updated reservation",
+              "code": 200
+            }
+          ],
+          "description": {
+            "content": "update reservation",
+            "type": "text/markdown"
+          }
+        },
+        {
+          "id": "668d586a-bb3f-4691-b345-b76b8fd4d34e",
+          "name": "cancelReservation",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "host": "msrapi-gse00013250.apaas.us6.oraclecloud.com",
+              "path": [
+                "v1",
+                "reservations/:reservationId"
+              ],
+              "variable": [
+                {
+                  "id": "reservationId",
+                  "value": "1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "body": {
+              "mode": "raw"
+            }
+          },
+          "response": [
+            {
+              "status": "reservation deleted",
+              "code": 204
+            }
+          ],
+          "description": {
+            "content": "cancel the reservation",
+            "type": "text/markdown"
+          }
+        }
+      ]
+    }
+  ]
+}

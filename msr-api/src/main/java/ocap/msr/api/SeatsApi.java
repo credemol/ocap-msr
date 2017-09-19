@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-08T15:25:12.926+09:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-19T16:58:30.268+09:00")
 
 @Api(value = "seats", description = "the seats API")
 public interface SeatsApi {
@@ -32,7 +32,7 @@ public interface SeatsApi {
         @ApiResponse(code = 200, message = "seat response", response = SeatVO.class) })
     
     @RequestMapping(value = "/seats",
-        produces = { "application/json;charset=UTF-8" }, 
+        produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
     ResponseEntity<SeatVO> addSeat(@ApiParam(value = "Seat to add to the store" ,required=true )  @Valid @RequestBody NewSeatVO seat);
@@ -62,10 +62,10 @@ public interface SeatsApi {
 
     @ApiOperation(value = "", notes = "return all seats registered MSR system ", response = SeatVO.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "pet response", response = SeatVO.class, responseContainer = "List") })
+        @ApiResponse(code = 200, message = "seat list", response = SeatVO.class, responseContainer = "List") })
     
     @RequestMapping(value = "/seats",
-        produces = { "application/json;charset=UTF-8" }, 
+        produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.GET)
     ResponseEntity<List<SeatVO>> findSeats(@ApiParam(value = "seatNo to filter by") @RequestParam(value = "seatNo", required = false) String seatNo,@ApiParam(value = "maximum number of results to return") @RequestParam(value = "limit", required = false) Integer limit);

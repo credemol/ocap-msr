@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 /**
  * NewSeatVO
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-08T15:25:12.926+09:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-19T16:58:30.268+09:00")
 
 public class NewSeatVO   {
   @JsonProperty("seatNo")
@@ -19,6 +19,9 @@ public class NewSeatVO   {
 
   @JsonProperty("location")
   private String location = null;
+
+  @JsonProperty("teamName")
+  private String teamName = null;
 
   public NewSeatVO seatNo(String seatNo) {
     this.seatNo = seatNo;
@@ -61,6 +64,26 @@ public class NewSeatVO   {
     this.location = location;
   }
 
+  public NewSeatVO teamName(String teamName) {
+    this.teamName = teamName;
+    return this;
+  }
+
+   /**
+   * Get teamName
+   * @return teamName
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getTeamName() {
+    return teamName;
+  }
+
+  public void setTeamName(String teamName) {
+    this.teamName = teamName;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -72,12 +95,13 @@ public class NewSeatVO   {
     }
     NewSeatVO newSeat = (NewSeatVO) o;
     return Objects.equals(this.seatNo, newSeat.seatNo) &&
-        Objects.equals(this.location, newSeat.location);
+        Objects.equals(this.location, newSeat.location) &&
+        Objects.equals(this.teamName, newSeat.teamName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(seatNo, location);
+    return Objects.hash(seatNo, location, teamName);
   }
 
   @Override
@@ -87,6 +111,7 @@ public class NewSeatVO   {
     
     sb.append("    seatNo: ").append(toIndentedString(seatNo)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
+    sb.append("    teamName: ").append(toIndentedString(teamName)).append("\n");
     sb.append("}");
     return sb.toString();
   }
