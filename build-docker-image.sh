@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t msr-api:1.0.0 .
+docker build -t msr-api:20170920 .
