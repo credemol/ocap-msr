@@ -1,5 +1,6 @@
 package ocap.msr.api;
 
+import ocap.msr.model.SeatVO;
 import ocap.msr.model.UserVO;
 import ocap.msr.service.UserService;
 import io.swagger.annotations.*;
@@ -48,4 +49,15 @@ public class UsersApiController implements UsersApi {
         return new ResponseEntity<List<UserVO>>(userService.findUsers(email), HttpStatus.OK);
     }
 
+	@Override
+	public ResponseEntity<Void> changePassword(@ApiParam(value = "user's email",required=true ) @RequestParam(value="email", required=true) String email,
+    		@ApiParam(value = "old password",required=true ) @RequestParam(value="oldPassword", required=true) String oldPassword,
+    		@ApiParam(value = "new password",required=true ) @RequestParam(value="newPassword", required=true) String newPassword) {
+		
+		userService.changePassword(email, oldPassword, newPassword);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+    
+    
 }

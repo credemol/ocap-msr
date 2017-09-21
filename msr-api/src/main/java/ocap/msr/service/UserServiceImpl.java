@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ocap.msr.api.NotFoundException;
+import ocap.msr.HttpBadRequestException;
+import ocap.msr.HttpNotFoundException;
 import ocap.msr.entity.User;
 import ocap.msr.model.UserVO;
 import ocap.msr.repository.UserRepository;
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private MsrConverter converter;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public List<UserVO> findUsers(String email) {
@@ -43,7 +47,7 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findOne(id);
 		
 		if(user == null) {
-			throw new ResourceNotFoundException("cannot find user with id: " + id);
+			throw new HttpNotFoundException("cannot find user with id: " + id);
 		}
 		return converter.toValueObject(user);
 	}
@@ -55,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findByEmail(email);
 		
 		if(user == null) {
-			throw new ResourceNotFoundException("cannot find user with email: " + email);
+			throw new HttpNotFoundException("cannot find user with email: " + email);
 		}
 		return converter.toValueObject(user);
 	}
@@ -65,9 +69,30 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findByFacebookId(facebookId);
 		
 		if(user == null) {
-			throw new ResourceNotFoundException("cannot find user with facebookId: " + facebookId);
+			throw new HttpNotFoundException("cannot find user with facebookId: " + facebookId);
 		}
 		return converter.toValueObject(user);
+	}
+
+
+
+	@Override
+	public void changePassword(String email, String oldPassword, String newPassword) {
+		
+		User user = userRepository.findByEmail(email);
+		
+		if(user == null) {
+			throw new HttpNotFoundException("cannot find user with email: " + email);
+		}
+		
+		if(passwordEncoder.matches(oldPassword, user.getPassword()) == false) {
+			throw new HttpBadRequestException("invalid password");
+		}
+		
+		user.setPassword(passwordEncoder.encode(newPassword));
+		
+		userRepository.save(user);
+		
 	}
 
 	

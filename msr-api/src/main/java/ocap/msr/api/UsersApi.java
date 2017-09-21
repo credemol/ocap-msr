@@ -5,6 +5,8 @@
  */
 package ocap.msr.api;
 
+import ocap.msr.model.NewSeatVO;
+import ocap.msr.model.SeatVO;
 import ocap.msr.model.UserVO;
 
 import io.swagger.annotations.*;
@@ -68,5 +70,14 @@ public interface UsersApi {
         consumes = { "application/json" },
         method = RequestMethod.GET)
     ResponseEntity<List<UserVO>> findUsers(@ApiParam(value = "email to filter by") @RequestParam(value = "email", required = false) String email,@ApiParam(value = "maximum number of results to return") @RequestParam(value = "limit", required = false) Integer limit);
+
+    
+    @RequestMapping(value = "/users/changePassword",
+            produces = { "application/json" }, 
+            consumes = { "application/json" },
+            method = RequestMethod.PUT)
+        ResponseEntity<Void> changePassword(@ApiParam(value = "user's email",required=true ) @RequestParam(value="email", required=true) String email,
+        		@ApiParam(value = "old password",required=true ) @RequestParam(value="oldPassword", required=true) String oldPassword,
+        		@ApiParam(value = "new password",required=true ) @RequestParam(value="newPassword", required=true) String newPassword);
 
 }

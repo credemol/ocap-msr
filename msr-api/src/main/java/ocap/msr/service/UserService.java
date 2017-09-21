@@ -9,5 +9,6 @@ public interface UserService {
 	UserVO findById(long id);
 	UserVO findByEmail(String email);
 	UserVO findByFacebookId(String facebookId);
+	void changePassword(String email, String oldPassword, String newPassword);
 	
 }

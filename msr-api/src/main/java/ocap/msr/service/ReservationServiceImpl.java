@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import ocap.msr.HttpNotFoundException;
 import ocap.msr.entity.Reservation;
 import ocap.msr.entity.Seat;
 import ocap.msr.entity.Team;
@@ -50,7 +50,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public void cancelReservation(long reservationId) {
 		Reservation reservation = reservationRepository.findOne(reservationId);
 		if(reservation == null) {
-			throw new ResourceNotFoundException("can't find reservation information with id: " + reservationId);
+			throw new HttpNotFoundException("can't find reservation information with id: " + reservationId);
 		}
 		reservationRepository.delete(reservationId);
 	}
@@ -119,7 +119,7 @@ public class ReservationServiceImpl implements ReservationService {
 		User user = userRepository.findByEmail(email);
 		if(user == null) {
 			//throw new IllegalArgumentException("user not found - email: " + email);
-			throw new ResourceNotFoundException("can't find the user with email: " + email);
+			throw new HttpNotFoundException("can't find the user with email: " + email);
 		}
 		if(startingTime == null && endingTime == null) {
 			reservations = reservationRepository.findByUserId(user.getId());
@@ -160,7 +160,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public ReservationVO viewReservation(long reservationId) {
 		Reservation reservation = reservationRepository.findOne(reservationId);
 		if(reservation == null) {
-			throw new ResourceNotFoundException("can't find the reservation information with id: " + reservationId);
+			throw new HttpNotFoundException("can't find the reservation information with id: " + reservationId);
 		}
 		return converter.toValueObject(reservation);
 	}
@@ -170,7 +170,7 @@ public class ReservationServiceImpl implements ReservationService {
 		Reservation entity = reservationRepository.findOne(reservationId);
 		
 		if(entity == null) {
-			throw new ResourceNotFoundException("can't find the reservation information with id: " + reservationId);
+			throw new HttpNotFoundException("can't find the reservation information with id: " + reservationId);
 		}
 		
 		entity.setSeat(seatRepository.findBySeatNo(entity.getSeat().getSeatNo()));
