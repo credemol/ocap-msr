@@ -22,6 +22,11 @@ $ docker build -t msr-api:1.0.0 .
 ```
 
 
+### Push image to registry
+```
+$ docker push credemol/msr-api:20170921
+```
+
 ## docker-compose.yml
 
 ```
@@ -60,14 +65,14 @@ This section is just for information.
 ```
 $ docker volume ls
 $ docker volume create msr_db
-$ docker run -it \
+$ docker run -d \
     -e MYSQL_ROOT_PASSWORD=KimKyudong1! \
     -e MYSQL_USER=msrdb \
     -e MYSQL_PASSWORD=KimKyudong1! \
     -e MYSQL_DATABASE=MSR_DB \
     -p 3306:3306 \
     -v msr_db:/var/lib/mysql \
-    --name mysql_server \
+    --name msrdb_mysql \
     "mysql:5.7.13"
 ```
 

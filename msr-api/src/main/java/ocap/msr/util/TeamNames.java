@@ -2,7 +2,7 @@ package ocap.msr.util;
 
 public enum TeamNames {
 	PUBLIC("Public"),
-	NOT_CATEGORIZED("Not Categorized"),
+	BLOCKED("Blocked"),
 	IAAS("IaaS & Security"),
 	INTEGRATION("Integration"),
 	BI_BIGDATA("BI & Big Data");

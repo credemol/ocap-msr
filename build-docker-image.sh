@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t msr-api:20170920 .
+docker build -t credemol/msr-api:20170921 .
